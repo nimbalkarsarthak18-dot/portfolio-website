@@ -1,23 +1,24 @@
 import React, { useState } from 'react';
 import { AnimatePresence } from 'framer-motion';
-import Preloader from './components/Preloader';
-import CustomCursor from './components/CustomCursor';
-import Navbar from './components/Navbar';
-import SectionTracker from './components/SectionTracker';
-import BackgroundCanvas from './components/BackgroundCanvas';
-import Toast from './components/Toast';
 
-import Hero from './sections/Hero';
-import About from './sections/About';
-import Skills from './sections/Skills';
-import DataLab from './sections/DataLab';
-import Projects from './sections/Projects';
-import EngineeringLab from './sections/EngineeringLab';
-import Journey from './sections/Journey';
-import GitHubDashboard from './sections/GitHubDashboard';
-import Contact from './sections/Contact';
+import Preloader from './Preloader';
+import CustomCursor from './CustomCursor';
+import Navbar from './Navbar';
+import SectionTracker from './SectionTracker';
+import BackgroundCanvas from './BackgroundCanvas';
+import Toast from './Toast';
 
-import { useActiveSection } from './hooks/useActiveSection';
+import Hero from './Hero';
+import About from './About';
+import Skills from './Skills';
+import DataLab from './DataLab';
+import Projects from './Projects';
+import EngineeringLab from './EngineeringLab';
+import Journey from './Journey';
+import GitHubDashboard from './GitHubDashboard';
+import Contact from './Contact';
+
+import { useActiveSection } from './useActiveSection';
 
 export default function App() {
   const [loading, setLoading] = useState(true);
@@ -38,55 +39,94 @@ export default function App() {
 
   const activeSection = useActiveSection(sectionIds);
 
-  const triggerToast = (msg) => {
-    setToastMessage(msg);
+  const triggerToast = (message) => {
+    setToastMessage(message);
     setToastVisible(true);
+
     setTimeout(() => {
       setToastVisible(false);
     }, 3200);
   };
 
   return (
-    <div style={{ position: 'relative', minHeight: '100vh', backgroundColor: '#050505' }}>
+    <div
+      style={{
+        position: 'relative',
+        minHeight: '100vh',
+        backgroundColor: '#050505'
+      }}
+    >
+
       {/* Cinematic Film Grain Overlay */}
       <div className="noise-overlay" />
 
-      {/* Atmospheric Particles & Mouse Glow Canvas */}
+      {/* Background Particles and Mouse Glow */}
       <BackgroundCanvas />
 
-      {/* Interactive Custom Cursor */}
+      {/* Custom Cursor */}
       <CustomCursor />
 
-      {/* Preloader Screen */}
+      {/* Preloader */}
       <AnimatePresence>
-        {loading && <Preloader onComplete={() => setLoading(false)} />}
+        {loading && (
+          <Preloader
+            onComplete={() => setLoading(false)}
+          />
+        )}
       </AnimatePresence>
 
-      {/* Fixed Top Navigation */}
+      {/* Navigation */}
       <Navbar activeSection={activeSection} />
 
-      {/* Right HUD Section Tracker (01 to 08) */}
+      {/* Right Side Section Tracker */}
       <SectionTracker activeSection={activeSection} />
 
-      {/* Main Content Sections */}
+      {/* Main Website Content */}
       <main>
-        <Hero />
-        <About />
-        <Skills />
-        <DataLab />
-        <Projects />
-        <EngineeringLab />
-        <Journey />
-        <GitHubDashboard />
-        <Contact onShowToast={triggerToast} />
+        <section id="hero">
+          <Hero />
+        </section>
+
+        <section id="about">
+          <About />
+        </section>
+
+        <section id="skills">
+          <Skills />
+        </section>
+
+        <section id="datalab">
+          <DataLab />
+        </section>
+
+        <section id="projects">
+          <Projects />
+        </section>
+
+        <section id="engineering-lab">
+          <EngineeringLab />
+        </section>
+
+        <section id="journey">
+          <Journey />
+        </section>
+
+        <section id="github">
+          <GitHubDashboard />
+        </section>
+
+        <section id="contact">
+          <Contact onShowToast={triggerToast} />
+        </section>
       </main>
 
-      {/* HUD Toast Notifications */}
+      {/* Toast Notification */}
       <Toast
         message={toastMessage}
         isVisible={toastVisible}
         onDismiss={() => setToastVisible(false)}
       />
+
     </div>
   );
 }

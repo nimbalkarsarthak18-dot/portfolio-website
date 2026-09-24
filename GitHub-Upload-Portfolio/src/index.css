@@ -1,0 +1,180 @@
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&family=Space+Grotesk:wght@300;400;500;600;700&family=Syne:wght@400;600;700;800;900&display=swap');
+
+:root {
+  --bg-black: #050505;
+  --bg-surface: #0a0a0d;
+  --bg-card: rgba(15, 15, 20, 0.7);
+  --bg-card-hover: rgba(25, 20, 24, 0.85);
+  
+  --crimson: #e50914;
+  --crimson-bright: #ff1a2a;
+  --crimson-dim: #8b0000;
+  --crimson-glow: rgba(229, 9, 20, 0.35);
+  --crimson-halo: rgba(255, 26, 42, 0.15);
+
+  --text-white: #f5f5f7;
+  --text-muted: #8e8e99;
+  --text-dim: #545460;
+  
+  --border-subtle: rgba(255, 255, 255, 0.08);
+  --border-crimson: rgba(229, 9, 20, 0.28);
+  --border-crimson-bright: rgba(255, 26, 42, 0.6);
+
+  --font-display: 'Syne', sans-serif;
+  --font-body: 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  background-color: var(--bg-black);
+  color: var(--text-white);
+  font-family: var(--font-body);
+  overflow-x: hidden;
+}
+
+body {
+  background-color: var(--bg-black);
+  color: var(--text-white);
+  min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #070709;
+}
+::-webkit-scrollbar-thumb {
+  background: #251013;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--crimson);
+  box-shadow: 0 0 10px var(--crimson-glow);
+}
+
+/* Subtle Film Grain Noise Texture */
+.noise-overlay {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 998;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+}
+
+/* Subtle Technical Grid */
+.tech-grid-bg {
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+  background-size: 64px 64px;
+}
+
+/* Glow Utilities */
+.glow-crimson-text {
+  text-shadow: 0 0 20px rgba(229, 9, 20, 0.6), 0 0 40px rgba(229, 9, 20, 0.3);
+}
+
+.glow-crimson-box {
+  box-shadow: 0 0 25px rgba(229, 9, 20, 0.2), inset 0 0 15px rgba(229, 9, 20, 0.1);
+}
+
+.glow-crimson-border {
+  border-color: var(--border-crimson-bright);
+  box-shadow: 0 0 15px rgba(229, 9, 20, 0.3);
+}
+
+/* Glass Surface */
+.glass-panel {
+  background: rgba(12, 12, 16, 0.65);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--border-subtle);
+}
+
+.glass-panel-crimson {
+  background: rgba(18, 10, 12, 0.65);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--border-crimson);
+}
+
+/* Typography Classes */
+.font-display {
+  font-family: var(--font-display);
+}
+
+.font-mono {
+  font-family: var(--font-mono);
+}
+
+.font-body {
+  font-family: var(--font-body);
+}
+
+/* HUD elements */
+.hud-corner {
+  position: relative;
+}
+.hud-corner::before, .hud-corner::after {
+  content: '';
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  border-color: var(--crimson);
+  pointer-events: none;
+}
+.hud-corner::before {
+  top: -1px;
+  left: -1px;
+  border-top: 2px solid var(--crimson);
+  border-left: 2px solid var(--crimson);
+}
+.hud-corner::after {
+  bottom: -1px;
+  right: -1px;
+  border-bottom: 2px solid var(--crimson);
+  border-right: 2px solid var(--crimson);
+}
+
+/* Button Reset & Base */
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+@keyframes spinRing {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
